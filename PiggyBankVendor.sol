@@ -48,7 +48,7 @@ contract PiggyBankVendor {
     // 一人限購一個，而且要付足夠的ETH
     function buyPiggyBank(string memory name, uint goal) public payable ifHasNoPiggyBank ifPaidEnough {
         // 建立撲滿合約
-        PiggyBank pb = new PiggyBank(name, goal);
+        PiggyBank pb = new PiggyBank(msg.sender, name, goal);
         // 將建立的撲滿合約地址寫入擁有紀錄
         ownedPiggyBank[msg.sender] = address(pb);
         // 觸發建立事件
@@ -60,8 +60,8 @@ contract PiggyBankVendor {
 contract PiggyBank {
 
     address payable owner; // 擁有者
-    string name; // 替撲滿設定的名稱
-    uint goal; // 存錢目標
+    string public name; // 替撲滿設定的名稱
+    uint public goal; // 存錢目標
 
     // 修飾器：是不是擁有人
     modifier ifOwner {
@@ -103,9 +103,11 @@ contract PiggyBank {
 
     // 建構式 （建立時需要設定名稱）
     constructor(
+        address payable buyer,
         string memory initName,
         uint initGoal
         ) public {
+        owner = buyer;
         name = initName;
         goal = initGoal;
     }
