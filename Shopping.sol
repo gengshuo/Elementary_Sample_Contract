@@ -2,12 +2,6 @@ pragma solidity ^0.5.0;
 
 contract MyShop {
 
-    struct Order {
-      uint prod_id;
-      uint amount;
-      uint unit_price; // N ehter / 1 pc
-    }
-
     address payable public manager;
     string shop_name;
     address[] product_list;
@@ -56,7 +50,7 @@ contract MyShop {
     function setShopName(string memory name) public ifManager {
       shop_name = name;
     }
-
+    
     function getProds() public view returns (address[] memory) {
         return product_list;
     }
