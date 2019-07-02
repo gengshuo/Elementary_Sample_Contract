@@ -21,8 +21,8 @@ contract PiggyBankVendor {
 
     // 修飾器：是不是付了足夠的錢
     modifier ifPaidEnough {
-      if (msg.value == 1e15) // 1 finney
-          revert("Sender has one PiggyBank");
+      if (msg.value != 1e15) // 1 finney
+          revert("Paid amount is not exactly.");
       _;
     }
 
