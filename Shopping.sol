@@ -50,7 +50,7 @@ contract MyShop {
     function setShopName(string memory name) public ifManager {
       shop_name = name;
     }
-    
+
     function getProds() public view returns (address[] memory) {
         return product_list;
     }
